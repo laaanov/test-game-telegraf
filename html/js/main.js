@@ -410,10 +410,10 @@ function showScore()
    });
 
    // Score and user data are sent to the bot to update the leaderboard
-   let uid = parse("uid");
-   let msgid = parse("msgid");
-   let chatid = parse("chatid");
-   let iid = parse("iid");
+   var uid = parse("uid");
+   var msgid = parse("msgid");
+   var chatid = parse("chatid");
+   var iid = parse("iid");
        
    if (uid && msgid && chatid) {
       $.get("/setscore/uid/"+uid+"/chat/"+chatid+"/msg/"+msgid+"/score/"+score);
@@ -424,6 +424,20 @@ function showScore()
 
    //make the replay button clickable
    replayclickable = true;
+}
+
+// Simple borrowed function to retrieve GET parameters
+function parse(val) {
+    var result = undefined;
+        tmp = [];
+    location.search
+    .substr(1)
+        .split("&")
+        .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+    });
+    return result;
 }
 
 $("#replay").click(function() {
